@@ -7,7 +7,7 @@ import org.gradle.api.provider.Provider;
 import org.gradle.api.services.BuildService;
 import org.gradle.api.services.BuildServiceParameters;
 import org.gradle.api.services.BuildServiceRegistry;
-import org.gradle.execution.RunWorkBuildOperationType;
+import org.gradle.execution.RunRootBuildWorkBuildOperationType;
 import org.gradle.internal.build.event.BuildEventListenerRegistryInternal;
 import org.gradle.internal.operations.*;
 
@@ -62,8 +62,8 @@ public class BuildOperationTrace {
 
         @Override
         public void finished(BuildOperationDescriptor buildOperationDescriptor, OperationFinishEvent operationFinishEvent) {
-            if (buildOperationDescriptor.getDetails() instanceof RunWorkBuildOperationType.Details) {
-                RunWorkBuildOperationType.Details details = (RunWorkBuildOperationType.Details) buildOperationDescriptor.getDetails();
+            if (buildOperationDescriptor.getDetails() instanceof RunRootBuildWorkBuildOperationType.Details) {
+                RunRootBuildWorkBuildOperationType.Details details = (RunRootBuildWorkBuildOperationType.Details) buildOperationDescriptor.getDetails();
                 long duration = operationFinishEvent.getStartTime() - details.getBuildStartTime();
                 timeToFirstTask.set(duration);
             }
